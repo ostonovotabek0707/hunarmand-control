@@ -1,9 +1,9 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="uz">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Hunarmand Control — Админ панель</title>
+  <title>Hunarmand Control вЂ” РђРґРјРёРЅ РїР°РЅРµР»СЊ</title>
   <style>
     :root{
       --bg:#f5f7fb; --card:#fff; --text:#172033; --muted:#6b7280;
@@ -54,20 +54,20 @@
 <header>
   <div class="wrap">
     <h1>Hunarmand Control</h1>
-    <div class="subtitle">Ходимлар бошқаруви ва назорати — админ панель</div>
+    <div class="subtitle">РҐРѕРґРёРјР»Р°СЂ Р±РѕС€Т›Р°СЂСѓРІРё РІР° РЅР°Р·РѕСЂР°С‚Рё вЂ” Р°РґРјРёРЅ РїР°РЅРµР»СЊ</div>
   </div>
 </header>
 
 <main>
   <section id="loginCard" class="card login">
-    <h2 style="margin-top:0">Кириш</h2>
-    <div class="muted">Фақат расмий аккаунтлар орқали кириш мумкин.</div>
-    <label for="phone">Телефон</label>
+    <h2 style="margin-top:0">РљРёСЂРёС€</h2>
+    <div class="muted">Р¤Р°Т›Р°С‚ СЂР°СЃРјРёР№ Р°РєРєР°СѓРЅС‚Р»Р°СЂ РѕСЂТ›Р°Р»Рё РєРёСЂРёС€ РјСѓРјРєРёРЅ.</div>
+    <label for="phone">РўРµР»РµС„РѕРЅ</label>
     <input id="phone" placeholder="+998..." autocomplete="username">
-    <label for="password">Пароль</label>
+    <label for="password">РџР°СЂРѕР»СЊ</label>
     <input id="password" type="password" autocomplete="current-password">
     <div style="margin-top:16px">
-      <button id="loginBtn" class="primary">Кириш</button>
+      <button id="loginBtn" class="primary">РљРёСЂРёС€</button>
     </div>
     <div id="loginError" class="error hidden"></div>
   </section>
@@ -76,34 +76,34 @@
     <div class="card">
       <div class="row between">
         <div>
-          <h2 style="margin:0 0 5px">Ходимлар</h2>
+          <h2 style="margin:0 0 5px">РҐРѕРґРёРјР»Р°СЂ</h2>
           <div id="userInfo" class="muted"></div>
         </div>
-        <button id="logoutBtn" class="secondary">Чиқиш</button>
+        <button id="logoutBtn" class="secondary">Р§РёТ›РёС€</button>
       </div>
       <div class="notice" style="margin-top:16px">
-        Фаол ходимлар автоматик чиқарилади. Нофаол аккаунтлар асосий рўйхатдан яширилади.
+        Р¤Р°РѕР» С…РѕРґРёРјР»Р°СЂ Р°РІС‚РѕРјР°С‚РёРє С‡РёТ›Р°СЂРёР»Р°РґРё. РќРѕС„Р°РѕР» Р°РєРєР°СѓРЅС‚Р»Р°СЂ Р°СЃРѕСЃРёР№ СЂСћР№С…Р°С‚РґР°РЅ СЏС€РёСЂРёР»Р°РґРё.
       </div>
 
       <div class="grid">
-        <div class="stat"><div id="totalN" class="n">0</div><div class="t">Фаол ходимлар</div></div>
-        <div class="stat"><div id="regionalN" class="n">0</div><div class="t">Вилоят бошқармаси</div></div>
-        <div class="stat"><div id="headsN" class="n">0</div><div class="t">Туман/шаҳар раҳбарлари</div></div>
-        <div class="stat"><div class="n">1</div><div class="t">Шофиркон — вакант</div></div>
+        <div class="stat"><div id="totalN" class="n">0</div><div class="t">Р¤Р°РѕР» С…РѕРґРёРјР»Р°СЂ</div></div>
+        <div class="stat"><div id="regionalN" class="n">0</div><div class="t">Р’РёР»РѕСЏС‚ Р±РѕС€Т›Р°СЂРјР°СЃРё</div></div>
+        <div class="stat"><div id="headsN" class="n">0</div><div class="t">РўСѓРјР°РЅ/С€Р°ТіР°СЂ СЂР°ТіР±Р°СЂР»Р°СЂРё</div></div>
+        <div class="stat"><div class="n">1</div><div class="t">РЁРѕС„РёСЂРєРѕРЅ вЂ” РІР°РєР°РЅС‚</div></div>
       </div>
 
       <div class="tools">
-        <input id="search" placeholder="Ф.И.О., лавозим ёки туман бўйича қидириш...">
-        <button id="refreshBtn" class="secondary">Янгилаш</button>
+        <input id="search" placeholder="Р¤.Р.Рћ., Р»Р°РІРѕР·РёРј С‘РєРё С‚СѓРјР°РЅ Р±СћР№РёС‡Р° Т›РёРґРёСЂРёС€...">
+        <button id="refreshBtn" class="secondary">РЇРЅРіРёР»Р°С€</button>
       </div>
 
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
-              <th>#</th><th>Ф.И.О.</th><th>Лавозим</th><th>Роль</th>
-              <th>Туман/ҳудуд</th><th>Телефон</th><th>Туғилган сана</th>
-              <th>Маълумоти</th><th>Ҳолат</th>
+              <th>#</th><th>Р¤.Р.Рћ.</th><th>Р›Р°РІРѕР·РёРј</th><th>Р РѕР»СЊ</th>
+              <th>РўСѓРјР°РЅ/ТіСѓРґСѓРґ</th><th>РўРµР»РµС„РѕРЅ</th><th>РўСѓТ“РёР»РіР°РЅ СЃР°РЅР°</th>
+              <th>РњР°СЉР»СѓРјРѕС‚Рё</th><th>ТІРѕР»Р°С‚</th>
             </tr>
           </thead>
           <tbody id="tbody"></tbody>
@@ -116,7 +116,7 @@
 
 <script>
 (() => {
-  const API = window.location.origin;
+  const API = "https://hunarmand-control.onrender.com";
   let token = sessionStorage.getItem("hc_access_token") || "";
   let employees = [];
 
@@ -132,17 +132,17 @@
   async function login(){
     $("loginError").classList.add("hidden");
     const phone=$("phone").value.trim(), password=$("password").value;
-    if(!phone || !password){ $("loginError").textContent="Телефон ва пароль киритинг."; show("loginError"); return; }
+    if(!phone || !password){ $("loginError").textContent="РўРµР»РµС„РѕРЅ РІР° РїР°СЂРѕР»СЊ РєРёСЂРёС‚РёРЅРі."; show("loginError"); return; }
     try{
       const r=await fetch(`${API}/api/v1/auth/login`,{
         method:"POST",headers:{"Content-Type":"application/json"},
         body:JSON.stringify({phone,password})
       });
       const d=await r.json();
-      if(!r.ok) throw new Error(d.detail || "Кириш амалга ошмади");
+      if(!r.ok) throw new Error(d.detail || "РљРёСЂРёС€ Р°РјР°Р»РіР° РѕС€РјР°РґРё");
       saveToken(d.access_token);
       show("loginCard",false); show("panel",true);
-      $("userInfo").textContent=`${d.user?.phone || phone} — ${d.user?.role_name || ""}`;
+      $("userInfo").textContent=`${d.user?.phone || phone} вЂ” ${d.user?.role_name || ""}`;
       await loadEmployees();
     }catch(e){
       $("loginError").textContent=e.message;
@@ -157,7 +157,7 @@
         headers:{Authorization:`Bearer ${token}`}
       });
       const d=await r.json();
-      if(!r.ok) throw new Error(d.detail || "Ходимлар рўйхатини олиб бўлмади");
+      if(!r.ok) throw new Error(d.detail || "РҐРѕРґРёРјР»Р°СЂ СЂСћР№С…Р°С‚РёРЅРё РѕР»РёР± Р±СћР»РјР°РґРё");
       employees=Array.isArray(d.employees) ? d.employees : [];
       render();
     }catch(e){
@@ -186,10 +186,10 @@
         <td><strong>${esc(x.full_name)}</strong><div class="muted">${esc(x.employee_number)}</div></td>
         <td>${esc(x.position)}</td>
         <td class="role">${esc(x.role_name)}</td>
-        <td>${esc(x.district_name || "Вилоят бошқармаси")}</td>
+        <td>${esc(x.district_name || "Р’РёР»РѕСЏС‚ Р±РѕС€Т›Р°СЂРјР°СЃРё")}</td>
         <td>${esc(x.phone)}</td>
-        <td>${esc(x.birth_date || "—")}</td>
-        <td>${esc(x.education || "—")}</td>
+        <td>${esc(x.birth_date || "вЂ”")}</td>
+        <td>${esc(x.education || "вЂ”")}</td>
         <td><span class="badge active">ACTIVE</span></td>
       </tr>
     `).join("");
@@ -206,3 +206,4 @@
 </script>
 </body>
 </html>
+
