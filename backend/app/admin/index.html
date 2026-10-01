@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hunarmand Control — Админ панель</title>
+  <style>
+    :root{
+      --bg:#f5f7fb; --card:#fff; --text:#172033; --muted:#6b7280;
+      --line:#e5e7eb; --primary:#173c7a; --primary2:#2456a4;
+      --ok:#18794e; --okbg:#eaf7f0; --vac:#9a6700; --vacbg:#fff7df;
+      --danger:#b42318; --shadow:0 8px 28px rgba(20,35,70,.08);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
+    header{background:linear-gradient(135deg,var(--primary),var(--primary2));color:#fff;padding:24px 28px}
+    header .wrap{max-width:1200px;margin:auto}
+    h1{margin:0 0 6px;font-size:25px}
+    .subtitle{opacity:.88;font-size:14px}
+    main{max-width:1200px;margin:24px auto;padding:0 20px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:20px}
+    .login{max-width:440px;margin:55px auto}
+    label{display:block;font-size:13px;font-weight:600;margin:12px 0 6px}
+    input{width:100%;padding:12px 13px;border:1px solid #d1d5db;border-radius:10px;font-size:14px}
+    button{border:0;border-radius:10px;padding:11px 16px;font-weight:700;cursor:pointer}
+    .primary{background:var(--primary);color:#fff}
+    .secondary{background:#eef2f7;color:#23324d}
+    .row{display:flex;gap:12px;align-items:center}
+    .between{justify-content:space-between}
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
+    .stat{padding:16px;border:1px solid var(--line);border-radius:14px}
+    .stat .n{font-size:26px;font-weight:800}
+    .stat .t{font-size:12px;color:var(--muted);margin-top:4px}
+    .tools{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}
+    .tools input{max-width:360px}
+    .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:12px}
+    table{width:100%;border-collapse:collapse;min-width:1050px}
+    th,td{padding:12px 13px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;font-size:13px}
+    th{background:#f8fafc;font-size:12px;color:#475467;position:sticky;top:0}
+    tr:last-child td{border-bottom:0}
+    .badge{display:inline-block;padding:5px 8px;border-radius:999px;font-size:11px;font-weight:800}
+    .active{background:var(--okbg);color:var(--ok)}
+    .vacant{background:var(--vacbg);color:var(--vac)}
+    .role{color:#344054;font-weight:700}
+    .muted{color:var(--muted)}
+    .error{color:var(--danger);background:#fff1f0;border:1px solid #fecdca;padding:10px;border-radius:10px;margin-top:10px}
+    .hidden{display:none}
+    .notice{padding:12px 14px;background:#eef5ff;border:1px solid #cfe0ff;border-radius:12px;color:#1d4e89;font-size:13px;margin-bottom:18px}
+    @media (max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:560px){.grid{grid-template-columns:1fr}.row{align-items:stretch;flex-direction:column}}
+  </style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>Hunarmand Control</h1>
+    <div class="subtitle">Ходимлар бошқаруви ва назорати — админ панель</div>
+  </div>
+</header>
+
+<main>
+  <section id="loginCard" class="card login">
+    <h2 style="margin-top:0">Кириш</h2>
+    <div class="muted">Фақат расмий аккаунтлар орқали кириш мумкин.</div>
+    <label for="phone">Телефон</label>
+    <input id="phone" placeholder="+998..." autocomplete="username">
+    <label for="password">Пароль</label>
+    <input id="password" type="password" autocomplete="current-password">
+    <div style="margin-top:16px">
+      <button id="loginBtn" class="primary">Кириш</button>
+    </div>
+    <div id="loginError" class="error hidden"></div>
+  </section>
+
+  <section id="panel" class="hidden">
+    <div class="card">
+      <div class="row between">
+        <div>
+          <h2 style="margin:0 0 5px">Ходимлар</h2>
+          <div id="userInfo" class="muted"></div>
+        </div>
+        <button id="logoutBtn" class="secondary">Чиқиш</button>
+      </div>
+      <div class="notice" style="margin-top:16px">
+        Фаол ходимлар автоматик чиқарилади. Нофаол аккаунтлар асосий рўйхатдан яширилади.
+      </div>
+
+      <div class="grid">
+        <div class="stat"><div id="totalN" class="n">0</div><div class="t">Фаол ходимлар</div></div>
+        <div class="stat"><div id="regionalN" class="n">0</div><div class="t">Вилоят бошқармаси</div></div>
+        <div class="stat"><div id="headsN" class="n">0</div><div class="t">Туман/шаҳар раҳбарлари</div></div>
+        <div class="stat"><div class="n">1</div><div class="t">Шофиркон — вакант</div></div>
+      </div>
+
+      <div class="tools">
+        <input id="search" placeholder="Ф.И.О., лавозим ёки туман бўйича қидириш...">
+        <button id="refreshBtn" class="secondary">Янгилаш</button>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th><th>Ф.И.О.</th><th>Лавозим</th><th>Роль</th>
+              <th>Туман/ҳудуд</th><th>Телефон</th><th>Туғилган сана</th>
+              <th>Маълумоти</th><th>Ҳолат</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+      <div id="panelError" class="error hidden"></div>
+    </div>
+  </section>
+</main>
+
+<script>
+(() => {
+  const API = window.location.origin;
+  let token = sessionStorage.getItem("hc_access_token") || "";
+  let employees = [];
+
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[c]));
+
+  function show(id, yes=true){ $(id).classList.toggle("hidden", !yes); }
+  function saveToken(t){ token=t; sessionStorage.setItem("hc_access_token", t); }
+  function clearToken(){ token=""; sessionStorage.removeItem("hc_access_token"); }
+
+  async function login(){
+    $("loginError").classList.add("hidden");
+    const phone=$("phone").value.trim(), password=$("password").value;
+    if(!phone || !password){ $("loginError").textContent="Телефон ва пароль киритинг."; show("loginError"); return; }
+    try{
+      const r=await fetch(`${API}/api/v1/auth/login`,{
+        method:"POST",headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({phone,password})
+      });
+      const d=await r.json();
+      if(!r.ok) throw new Error(d.detail || "Кириш амалга ошмади");
+      saveToken(d.access_token);
+      show("loginCard",false); show("panel",true);
+      $("userInfo").textContent=`${d.user?.phone || phone} — ${d.user?.role_name || ""}`;
+      await loadEmployees();
+    }catch(e){
+      $("loginError").textContent=e.message;
+      show("loginError");
+    }
+  }
+
+  async function loadEmployees(){
+    $("panelError").classList.add("hidden");
+    try{
+      const r=await fetch(`${API}/api/v1/admin/employees`,{
+        headers:{Authorization:`Bearer ${token}`}
+      });
+      const d=await r.json();
+      if(!r.ok) throw new Error(d.detail || "Ходимлар рўйхатини олиб бўлмади");
+      employees=Array.isArray(d.employees) ? d.employees : [];
+      render();
+    }catch(e){
+      if(String(e.message).toLowerCase().includes("not authenticated") || e.message.includes("Could not validate")){
+        clearToken(); show("loginCard",true); show("panel",false);
+      }
+      $("panelError").textContent=e.message;
+      show("panelError");
+    }
+  }
+
+  function render(){
+    const q=$("search").value.trim().toLowerCase();
+    const list=employees.filter(x =>
+      [x.full_name,x.position,x.role_name,x.district_name,x.phone,x.education]
+      .some(v=>String(v??"").toLowerCase().includes(q))
+    );
+
+    $("totalN").textContent=employees.length;
+    $("regionalN").textContent=employees.filter(x=>!x.district_name).length;
+    $("headsN").textContent=employees.filter(x=>x.role_name==="DISTRICT_HEAD").length;
+
+    $("tbody").innerHTML=list.map((x,i)=>`
+      <tr>
+        <td>${i+1}</td>
+        <td><strong>${esc(x.full_name)}</strong><div class="muted">${esc(x.employee_number)}</div></td>
+        <td>${esc(x.position)}</td>
+        <td class="role">${esc(x.role_name)}</td>
+        <td>${esc(x.district_name || "Вилоят бошқармаси")}</td>
+        <td>${esc(x.phone)}</td>
+        <td>${esc(x.birth_date || "—")}</td>
+        <td>${esc(x.education || "—")}</td>
+        <td><span class="badge active">ACTIVE</span></td>
+      </tr>
+    `).join("");
+  }
+
+  $("loginBtn").onclick=login;
+  $("password").addEventListener("keydown", e=>{ if(e.key==="Enter") login(); });
+  $("search").addEventListener("input",render);
+  $("refreshBtn").onclick=loadEmployees;
+  $("logoutBtn").onclick=()=>{clearToken(); show("panel",false);show("loginCard",true);};
+
+  if(token){ show("loginCard",false);show("panel",true);loadEmployees(); }
+})();
+</script>
+</body>
+</html>

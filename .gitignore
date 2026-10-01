@@ -1,0 +1,56 @@
+﻿# Secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Android / Gradle
+.gradle/
+.kotlin/
+**/build/
+local.properties
+*.apk
+*.aab
+
+# IDE
+.idea/
+*.iml
+
+# Runtime / database
+pgdata/
+*.log
+
+# Local reports and temporary files
+*.tmp
+*.bak
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Project backups / local data
+*.backup
+*.bak
+*.sql
+*backup*
+*BEFORE*
+*before*
+*ERROR*
+*error*
+*MENU_ERROR*
+build-error.txt
+compile-error.txt
+compile_error.txt
+kotlin_build_error.txt
+kotlin_final_error.txt
+
+# Local backups and staff data
+*.broken_admin_mount
+*staff_import*
+main_AUTH_ROLES_WORKING_*
+create_employee.txt
