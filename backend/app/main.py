@@ -23,6 +23,15 @@ DATABASE_URL = os.getenv(
     ""
 )
 
+# Render/PostgreSQL may provide postgresql:// without an explicit driver.
+# Use psycopg (v3), which is installed in requirements.txt.
+if DATABASE_URL.startswith("postgresql://"):
+    DATABASE_URL = DATABASE_URL.replace(
+        "postgresql://",
+        "postgresql+psycopg://",
+        1
+    )
+
 JWT_SECRET = os.getenv(
     "JWT_SECRET",
     "CHANGE_THIS_SECRET_IN_PRODUCTION"
@@ -860,6 +869,7 @@ def root():
         "version": "0.1.0",
         "status": "running"
     }
+
 
 
 
